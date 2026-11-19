@@ -1,20 +1,26 @@
-workflows:
-  android-debug:
-    name: Tiida Smart Control - Android Debug
-    max_build_duration: 30
-    instance_type: mac_mini_m2
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
-    scripts:
-      - name: Install Gradle
-        script: |
-          curl -L --fail -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.9-bin.zip
-          unzip -q /tmp/gradle.zip -d /tmp
-          export PATH="/tmp/gradle-8.9/bin:$PATH"
+android {
+    namespace 'com.tiida.smartcontrol'
+    compileSdk 35
 
-      - name: Build APK
-        script: |
-          export PATH="/tmp/gradle-8.9/bin:$PATH"
-          gradle assembleDebug
+    defaultConfig {
+        applicationId 'com.tiida.smartcontrol'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '0.1.0'
+    }
 
-    artifacts:
-      - app/build/outputs/**/*.apk
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
