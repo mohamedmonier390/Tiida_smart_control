@@ -98,7 +98,7 @@ class MainActivity : Activity() {
         status.text = "Connecting…"
         thread {
             try {
-                BluetoothAdapter.getDefaultAdapter()?.cancelDiscovery()
+                BluetoothAdapter.getDefaultAdapter()?
                 val s = device.createRfcommSocketToServiceRecord(sppUuid)
                 s.connect()
                 socket = s
