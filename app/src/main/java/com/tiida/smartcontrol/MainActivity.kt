@@ -77,7 +77,7 @@ class MainActivity : Activity() {
 
     private fun showPairedDevices() {
         try {
-            val adapter = BluetoothAdapter.getDefaultAdapter()
+            
             if (adapter == null) { append("Bluetooth not available"); return }
             val devices = adapter.bondedDevices.toList()
             if (devices.isEmpty()) {
