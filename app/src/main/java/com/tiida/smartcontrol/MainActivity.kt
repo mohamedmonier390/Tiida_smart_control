@@ -109,18 +109,32 @@ class MainActivity : Activity() {
     }
 
     private fun requestBluetoothPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (checkSelfPermission(
-                    Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(
-                    arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                    100
-                )
-            }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+        val permissions = mutableListOf<String>()
+
+        if (checkSelfPermission(
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissions.add(Manifest.permission.BLUETOOTH_CONNECT)
+        }
+
+        if (checkSelfPermission(
+                Manifest.permission.BLUETOOTH_SCAN
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissions.add(Manifest.permission.BLUETOOTH_SCAN)
+        }
+
+        if (permissions.isNotEmpty()) {
+            requestPermissions(
+                permissions.toTypedArray(),
+                100
+            )
         }
     }
+}
 
     private fun showPairedDevices() {
         try {
